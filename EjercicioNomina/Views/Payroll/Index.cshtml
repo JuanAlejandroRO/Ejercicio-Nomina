@@ -1,0 +1,41 @@
+﻿@model EjercicioNomina.Domain.Employee
+
+<h2>Cálculo de Nómina</h2>
+
+<form asp-action="Calculate" method="post">
+
+    <div>
+        <label>Nombre:</label>
+        <input asp-for="Name" />
+    </div>
+
+    <div>
+        <label>Rol:</label>
+        <select asp-for="Role">
+            <option value="0">Chofer</option>
+            <option value="1">Cargador</option>
+            <option value="2">Auxiliar</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Tipo:</label>
+        <select asp-for="Type">
+            <option value="0">Interno</option>
+            <option value="1">Subcontratado</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Horas trabajadas:</label>
+        <input asp-for="HoursWorked" type="number" />
+    </div>
+
+    <div>
+        <label>Entregas realizadas:</label>
+        <input asp-for="Deliveries" type="number" />
+    </div>
+
+    <button type="submit">Calcular</button>
+
+</form>
