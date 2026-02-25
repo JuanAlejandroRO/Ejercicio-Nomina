@@ -1,0 +1,43 @@
+﻿@model Nomina.Application.PayrollResult
+
+<div class="container mt-4">
+
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <h4>Resultado del Cálculo de Nómina</h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label><strong>Sueldo Bruto:</strong></label>
+                    <input class="form-control" value="@Model.GrossSalary" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <label><strong>ISR Retenido:</strong></label>
+                    <input class="form-control" value="@Model.ISR" readonly />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label><strong>Vales:</strong></label>
+                    <input class="form-control" value="@Model.Vouchers" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <label><strong>Sueldo Neto:</strong></label>
+                    <input class="form-control fw-bold text-success" value="@Model.NetSalary" readonly />
+                </div>
+            </div>
+
+            <div class="text-end">
+                <a asp-action="Index" class="btn btn-primary">Regresar</a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
