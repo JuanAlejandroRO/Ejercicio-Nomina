@@ -4,12 +4,12 @@
 
     <div class="card">
         <div class="card-header bg-secondary text-white">
-            <h4>Empleados</h4>
+            <h4>Captura de movimientos</h4>
         </div>
 
         <div class="card-body">
 
-            <!-- Botones superiores -->
+            <!-- Botones -->
             <div class="mb-4 text-center">
                 <button class="btn btn-outline-primary me-2">Nuevo</button>
                 <button class="btn btn-outline-secondary me-2">Buscar</button>
@@ -21,39 +21,59 @@
 
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label>Número:</label>
+                        <label>Número de empleado:</label>
                         <input asp-for="Id" class="form-control" />
                     </div>
-
                     <div class="col-md-6">
                         <label>Nombre:</label>
                         <input asp-for="Name" class="form-control" />
                     </div>
                 </div>
 
-                <div class="row">
-
-                    <!-- Rol -->
+                <div class="row mb-3">
                     <div class="col-md-6">
-                        <div class="border p-3">
-                            <label><strong>Rol:</strong></label><br />
-
-                            <input type="radio" asp-for="Role" value="0" /> Chofer <br />
-                            <input type="radio" asp-for="Role" value="1" /> Cargador <br />
-                            <input type="radio" asp-for="Role" value="2" /> Auxiliar
-                        </div>
+                        <label>Rol:</label>
+                        <select asp-for="Role" class="form-control">
+                            <option value="0">Chofer</option>
+                            <option value="1">Cargador</option>
+                            <option value="2">Auxiliar</option>
+                        </select>
                     </div>
 
-                    <!-- Tipo -->
                     <div class="col-md-6">
-                        <div class="border p-3">
-                            <label><strong>Tipo:</strong></label><br />
+                        <label>Fecha:</label>
+                        <input asp-for="Date" type="date" class="form-control" />
+                    </div>
+                </div>
 
-                            <input type="radio" asp-for="Type" value="0" /> Interno <br />
-                            <input type="radio" asp-for="Type" value="1" /> Subcontratado
-                        </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label>Cantidad de entregas:</label>
+                        <input asp-for="Deliveries" type="number" class="form-control" />
                     </div>
 
+                    <div class="col-md-6">
+                        <label>Tipo:</label><br />
+                        <input type="radio" asp-for="Type" value="0" /> Interno
+                        <input type="radio" asp-for="Type" value="1" /> Externo
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <input type="checkbox" asp-for="CoveredShift" />
+                        <label>Cubrió turno</label>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Rol cubierto:</label>
+                        <select asp-for="CoveredRole" class="form-control">
+                            <option value="">-- Ninguno --</option>
+                            <option value="0">Chofer</option>
+                            <option value="1">Cargador</option>
+                            <option value="2">Auxiliar</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="text-end mt-4">

@@ -40,9 +40,17 @@ namespace Nomina.Application
 
         private decimal GetBonus(Employee employee)
         {
-            Role roleToUse = employee.CoveredRole ?? employee.Role;
+            if (employee.CoveredShift && employee.CoveredRole.HasValue)
+            {
+                return employee.CoveredRole switch
+                {
+                    Role.Chofer => 10m,
+                    Role.Cargador => 5m,
+                    _ => 0m
+                };
+            }
 
-            return roleToUse switch
+            return employee.Role switch
             {
                 Role.Chofer => 10m,
                 Role.Cargador => 5m,
