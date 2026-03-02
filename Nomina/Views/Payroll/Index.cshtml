@@ -9,21 +9,51 @@
 
         <div class="card-body">
 
-            <!-- Botones -->
-            <div class="mb-4 text-center">
-                <button class="btn btn-outline-primary me-2">Nuevo</button>
-                <button class="btn btn-outline-secondary me-2">Buscar</button>
-                <button class="btn btn-outline-warning me-2">Modificar</button>
-                <button class="btn btn-outline-danger">Eliminar</button>
-            </div>
+            <!-- FORMULARIO -->
+            <form method="post">
 
-            <form asp-action="Calculate" method="post">
+                <input type="hidden" asp-for="Id" />
+
+                <!-- BOTONES SUPERIORES -->
+                <div class="mb-4 text-center">
+
+                    <!-- Nuevo -->
+                    <a asp-action="Index" class="btn btn-outline-primary me-2">
+                        Nuevo
+                    </a>
+
+                    <!-- Buscar -->
+                    <button type="submit"
+                            formaction="/Payroll/Buscar"
+                            formmethod="get"
+                            class="btn btn-outline-secondary me-2">
+                        Buscar
+                    </button>
+
+                    <!-- Modificar -->
+                    <button type="submit"
+                            formaction="/Payroll/Guardar"
+                            class="btn btn-outline-warning me-2">
+                        Modificar
+                    </button>
+
+                    <!-- Eliminar -->
+                    <button type="submit"
+                            formaction="/Payroll/Eliminar"
+                            formmethod="get"
+                            onclick="return confirm('¿Seguro que deseas eliminar este registro?');"
+                            class="btn btn-outline-danger">
+                        Eliminar
+                    </button>
+
+                </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label>Número de empleado:</label>
                         <input asp-for="Id" class="form-control" />
                     </div>
+
                     <div class="col-md-6">
                         <label>Nombre:</label>
                         <input asp-for="Name" class="form-control" />
@@ -42,29 +72,39 @@
 
                     <div class="col-md-6">
                         <label>Fecha:</label>
-                        <input asp-for="Date" type="date" class="form-control" />
+                        <input asp-for="Date"
+                               type="date"
+                               class="form-control"
+                               value="@(Model.Date == DateTime.MinValue ? DateTime.Today.ToString("yyyy-MM-dd") : Model.Date.ToString("yyyy-MM-dd"))" />
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
+                        <label>Horas trabajadas:</label>
+                        <input asp-for="HoursWorked" type="number" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
                         <label>Cantidad de entregas:</label>
                         <input asp-for="Deliveries" type="number" class="form-control" />
                     </div>
+                </div>
 
+                <div class="row mb-3">
                     <div class="col-md-6">
                         <label>Tipo:</label><br />
                         <input type="radio" asp-for="Type" value="0" /> Interno
                         <input type="radio" asp-for="Type" value="1" /> Externo
                     </div>
-                </div>
 
-                <div class="row mb-3">
                     <div class="col-md-6">
                         <input type="checkbox" asp-for="CoveredShift" />
                         <label>Cubrió turno</label>
                     </div>
+                </div>
 
+                <div class="row mb-3">
                     <div class="col-md-6">
                         <label>Rol cubierto:</label>
                         <select asp-for="CoveredRole" class="form-control">
@@ -77,8 +117,15 @@
                 </div>
 
                 <div class="text-end mt-4">
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                    <button type="reset" class="btn btn-secondary">Cancelar</button>
+                    <button type="submit"
+                            formaction="/Payroll/Guardar"
+                            class="btn btn-success">
+                        Guardar
+                    </button>
+
+                    <button type="reset" class="btn btn-secondary">
+                        Cancelar
+                    </button>
                 </div>
 
             </form>

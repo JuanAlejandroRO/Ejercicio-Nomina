@@ -16,7 +16,7 @@
     public class Employee
     {
         public int Id { get; set; }
-        public required string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         public Role Role { get; set; }
         public EmployeeType Type { get; set; }
