@@ -1,5 +1,108 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Nomina.Domain.Employee
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-warning text-dark">
+            <h4>Modificar Empleado</h4>
+        </div>
+
+        <div class="card-body">
+
+            <!-- BUSCAR EMPLEADO -->
+            @if (Model == null || Model.Id == 0)
+            {
+                <form asp-action="CargarEditar" method="post">
+                    <div class="mb-3">
+                        <label>Número de empleado:</label>
+                        <input name="id" class="form-control" required />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Buscar
+                    </button>
+                </form>
+
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-danger mt-3">
+                        @ViewBag.Message
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- FORMULARIO DE EDICIÓN -->
+                <form asp-action="Actualizar" method="post">
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label>Nombre:</label>
+                            <input asp-for="Name" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Rol:</label>
+                            <select asp-for="Role" class="form-control">
+                                <option value="0">Chofer</option>
+                                <option value="1">Cargador</option>
+                                <option value="2">Auxiliar</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label>Fecha:</label>
+                            <input asp-for="Date" type="date" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Horas trabajadas:</label>
+                            <input asp-for="HoursWorked" type="number" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label>Cantidad de entregas:</label>
+                            <input asp-for="Deliveries" type="number" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Tipo:</label><br />
+                            <input type="radio" asp-for="Type" value="0" /> Interno
+                            <input type="radio" asp-for="Type" value="1" /> Externo
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <input type="checkbox" asp-for="CoveredShift" />
+                            <label>Cubrió turno</label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Rol cubierto:</label>
+                            <select asp-for="CoveredRole" class="form-control">
+                                <option value="">-- Ninguno --</option>
+                                <option value="0">Chofer</option>
+                                <option value="1">Cargador</option>
+                                <option value="2">Auxiliar</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-success">
+                            Actualizar
+                        </button>
+                    </div>
+
+                </form>
+            }
+
+        </div>
+    </div>
+</div>

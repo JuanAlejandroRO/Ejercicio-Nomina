@@ -101,7 +101,10 @@ namespace Nomina.Controllers
             _context.Employees.Update(employee);
             _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            // 🔥 recalculamos nómina después de actualizar
+            var resultado = _service.Calculate(employee);
+
+            return View("Result", resultado);
         }
 
         // =========================================

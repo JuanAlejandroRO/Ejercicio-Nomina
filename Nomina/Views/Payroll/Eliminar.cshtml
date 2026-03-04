@@ -1,5 +1,59 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Nomina.Domain.Employee
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-danger text-white">
+            <h4>Eliminar Empleado</h4>
+        </div>
+
+        <div class="card-body">
+
+            @if (Model == null || Model.Id == 0)
+            {
+                <!-- Buscar empleado -->
+                <form asp-action="ConfirmarEliminar" method="post">
+                    <div class="mb-3">
+                        <label>Número de empleado:</label>
+                        <input name="id" class="form-control" required />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Buscar
+                    </button>
+                </form>
+
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-danger mt-3">
+                        @ViewBag.Message
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Mostrar datos -->
+                <div class="alert alert-warning">
+                    <strong>¿Seguro que deseas eliminar este empleado?</strong>
+                </div>
+
+                <ul class="list-group mb-3">
+                    <li class="list-group-item"><strong>ID:</strong> @Model.Id</li>
+                    <li class="list-group-item"><strong>Nombre:</strong> @Model.Name</li>
+                    <li class="list-group-item"><strong>Rol:</strong> @Model.Role</li>
+                    <li class="list-group-item"><strong>Horas:</strong> @Model.HoursWorked</li>
+                </ul>
+
+                <form asp-action="EliminarDefinitivo" method="post">
+                    <input type="hidden" name="id" value="@Model.Id" />
+
+                    <button type="submit"
+                            class="btn btn-danger"
+                            onclick="return confirm('Esta acción no se puede deshacer. ¿Continuar?');">
+                        Eliminar Definitivamente
+                    </button>
+                </form>
+            }
+
+        </div>
+    </div>
+</div>
