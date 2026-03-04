@@ -16,45 +16,118 @@ namespace Nomina.Controllers
             _service = new PayrollService();
         }
 
-        //  Cargar vista vacía
+        // =========================================
+        // NUEVO (Pantalla principal)
+        // =========================================
         public IActionResult Index()
         {
-            return View(new Employee());
+            return View(new Employee
+            {
+                Date = DateTime.Today
+            });
         }
 
-        //  NUEVO (solo limpia formulario)
-        public IActionResult Nuevo()
-        {
-            return RedirectToAction("Index");
-        }
-
-        //  GUARDAR (Nuevo o Modificar)
+        // Guardar nuevo empleado
         [HttpPost]
         public IActionResult Guardar(Employee employee)
         {
-            if (employee.Id == 0)
-                _context.Employees.Add(employee);
-            else
-                _context.Employees.Update(employee);
+            if (!ModelState.IsValid)
+                return View("Index", employee);
 
+            _context.Employees.Add(employee);
+            _context.SaveChanges();
+
+            // Calcular nómina
+            var result = _service.Calculate(employee);
+
+            return View("Result", result);
+        }
+
+        // =========================================
+        // BUSCAR
+        // =========================================
+        public IActionResult Buscar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult BuscarResultado(int id)
+        {
+            var employee = _context.Employees.Find(id);
+
+            if (employee == null)
+            {
+                ViewBag.Message = "Empleado no encontrado";
+                return View("Buscar");
+            }
+
+            // Calcular nómina
+            var resultado = _service.Calculate(employee);
+
+            ViewBag.Resultado = resultado;
+
+            return View("Buscar", employee);
+        }
+
+        // =========================================
+        // EDITAR
+        // =========================================
+        public IActionResult Editar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CargarEditar(int id)
+        {
+            var employee = _context.Employees.Find(id);
+
+            if (employee == null)
+            {
+                ViewBag.Message = "Empleado no encontrado";
+                return View("Editar");
+            }
+
+            return View("Editar", employee);
+        }
+
+        [HttpPost]
+        public IActionResult Actualizar(Employee employee)
+        {
+            if (!ModelState.IsValid)
+                return View("Editar", employee);
+
+            _context.Employees.Update(employee);
             _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-        //  BUSCAR
-        public IActionResult Buscar(int id)
+        // =========================================
+        // ELIMINAR
+        // =========================================
+        public IActionResult Eliminar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ConfirmarEliminar(int id)
         {
             var employee = _context.Employees.Find(id);
 
             if (employee == null)
-                return RedirectToAction("Index");
+            {
+                ViewBag.Message = "Empleado no encontrado";
+                return View("Eliminar");
+            }
 
-            return View("Index", employee);
+            return View("Eliminar", employee);
         }
 
-        //  ELIMINAR
-        public IActionResult Eliminar(int id)
+        [HttpPost]
+        public IActionResult EliminarDefinitivo(int id)
         {
             var employee = _context.Employees.Find(id);
 
@@ -67,7 +140,9 @@ namespace Nomina.Controllers
             return RedirectToAction("Index");
         }
 
-        //  CALCULAR
+        // =========================================
+        // CALCULAR NÓMINA
+        // =========================================
         [HttpPost]
         public IActionResult Calculate(Employee employee)
         {

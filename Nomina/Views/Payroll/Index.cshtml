@@ -9,44 +9,31 @@
 
         <div class="card-body">
 
-            <!-- FORMULARIO -->
-            <form method="post">
+            <!-- BOTONES SUPERIORES (NAVEGACIÓN) -->
+            <div class="mb-4 text-center">
+
+                <a asp-action="Index" class="btn btn-outline-primary me-2">
+                    Nuevo
+                </a>
+
+                <a asp-action="Buscar" class="btn btn-outline-secondary me-2">
+                    Buscar
+                </a>
+
+                <a asp-action="Editar" class="btn btn-outline-warning me-2">
+                    Modificar
+                </a>
+
+                <a asp-action="Eliminar" class="btn btn-outline-danger">
+                    Eliminar
+                </a>
+
+            </div>
+
+            <!-- FORMULARIO NUEVO -->
+            <form asp-action="Guardar" method="post">
 
                 <input type="hidden" asp-for="Id" />
-
-                <!-- BOTONES SUPERIORES -->
-                <div class="mb-4 text-center">
-
-                    <!-- Nuevo -->
-                    <a asp-action="Index" class="btn btn-outline-primary me-2">
-                        Nuevo
-                    </a>
-
-                    <!-- Buscar -->
-                    <button type="submit"
-                            formaction="/Payroll/Buscar"
-                            formmethod="get"
-                            class="btn btn-outline-secondary me-2">
-                        Buscar
-                    </button>
-
-                    <!-- Modificar -->
-                    <button type="submit"
-                            formaction="/Payroll/Guardar"
-                            class="btn btn-outline-warning me-2">
-                        Modificar
-                    </button>
-
-                    <!-- Eliminar -->
-                    <button type="submit"
-                            formaction="/Payroll/Eliminar"
-                            formmethod="get"
-                            onclick="return confirm('¿Seguro que deseas eliminar este registro?');"
-                            class="btn btn-outline-danger">
-                        Eliminar
-                    </button>
-
-                </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
@@ -75,7 +62,9 @@
                         <input asp-for="Date"
                                type="date"
                                class="form-control"
-                               value="@(Model.Date == DateTime.MinValue ? DateTime.Today.ToString("yyyy-MM-dd") : Model.Date.ToString("yyyy-MM-dd"))" />
+                               value="@(Model.Date == DateTime.MinValue
+                                                                      ? DateTime.Today.ToString("yyyy-MM-dd")
+                                                                      : Model.Date.ToString("yyyy-MM-dd"))" />
                     </div>
                 </div>
 
@@ -117,9 +106,7 @@
                 </div>
 
                 <div class="text-end mt-4">
-                    <button type="submit"
-                            formaction="/Payroll/Guardar"
-                            class="btn btn-success">
+                    <button type="submit" class="btn btn-success">
                         Guardar
                     </button>
 

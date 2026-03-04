@@ -1,0 +1,82 @@
+﻿@model Nomina.Domain.Employee
+
+<div class="container mt-4">
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4>Buscar Empleado</h4>
+        </div>
+
+        <div class="card-body">
+
+            <!-- FORM BUSCAR -->
+            <form asp-action="BuscarResultado" method="post">
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label>Número de empleado:</label>
+                        <input type="number" name="id" class="form-control" required />
+                    </div>
+
+                    <div class="col-md-6 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+            <!-- MENSAJE -->
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-danger">
+                    @ViewBag.Message
+                </div>
+            }
+
+            <!-- RESULTADO -->
+            @if (Model != null && Model.Id != 0)
+            {
+                <hr />
+
+                <h5>Información del empleado</h5>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Nombre:</strong> @Model.Name
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Rol:</strong> @Model.Role
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <strong>Fecha:</strong> @Model.Date.ToShortDateString()
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Horas trabajadas:</strong> @Model.HoursWorked
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <strong>Entregas:</strong> @Model.Deliveries
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Tipo:</strong> @Model.Type
+                    </div>
+                </div>
+            }
+
+            <div class="mt-4">
+                <a asp-action="Index" class="btn btn-secondary">
+                    Volver
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
