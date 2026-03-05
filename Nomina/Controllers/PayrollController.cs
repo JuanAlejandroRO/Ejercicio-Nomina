@@ -37,7 +37,6 @@ namespace Nomina.Controllers
             _context.Employees.Add(employee);
             _context.SaveChanges();
 
-            // Calcular nómina
             var result = _service.Calculate(employee);
 
             return View("Result", result);
@@ -62,7 +61,6 @@ namespace Nomina.Controllers
                 return View("Buscar");
             }
 
-            // Calcular nómina
             var resultado = _service.Calculate(employee);
 
             ViewBag.Resultado = resultado;
@@ -89,6 +87,9 @@ namespace Nomina.Controllers
                 return View("Editar");
             }
 
+            var resultado = _service.Calculate(employee);
+            ViewBag.Resultado = resultado;
+
             return View("Editar", employee);
         }
 
@@ -101,7 +102,6 @@ namespace Nomina.Controllers
             _context.Employees.Update(employee);
             _context.SaveChanges();
 
-            // 🔥 recalculamos nómina después de actualizar
             var resultado = _service.Calculate(employee);
 
             return View("Result", resultado);
@@ -125,6 +125,9 @@ namespace Nomina.Controllers
                 ViewBag.Message = "Empleado no encontrado";
                 return View("Eliminar");
             }
+
+            var resultado = _service.Calculate(employee);
+            ViewBag.Resultado = resultado;
 
             return View("Eliminar", employee);
         }

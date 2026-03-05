@@ -31,19 +31,45 @@
             }
             else
             {
-                <!-- Mostrar datos -->
+                <!-- Confirmación -->
                 <div class="alert alert-warning">
                     <strong>¿Seguro que deseas eliminar este empleado?</strong>
                 </div>
 
+                <!-- Datos del empleado -->
                 <ul class="list-group mb-3">
                     <li class="list-group-item"><strong>ID:</strong> @Model.Id</li>
                     <li class="list-group-item"><strong>Nombre:</strong> @Model.Name</li>
                     <li class="list-group-item"><strong>Rol:</strong> @Model.Role</li>
-                    <li class="list-group-item"><strong>Horas:</strong> @Model.HoursWorked</li>
+                    <li class="list-group-item"><strong>Horas trabajadas:</strong> @Model.HoursWorked</li>
+                    <li class="list-group-item"><strong>Entregas:</strong> @Model.Deliveries</li>
+                    <li class="list-group-item"><strong>Tipo:</strong> @Model.Type</li>
                 </ul>
 
-                <form asp-action="EliminarDefinitivo" method="post">
+                <!-- Resultado de nómina -->
+                @if (ViewBag.Resultado != null)
+                {
+                    <div class="card mt-3">
+                        <div class="card-header bg-secondary text-white">
+                            Resultado de Nómina
+                        </div>
+
+                        <div class="card-body">
+
+                            <p><strong>Sueldo Bruto:</strong> $@ViewBag.Resultado.GrossSalary</p>
+
+                            <p><strong>ISR:</strong> $@ViewBag.Resultado.ISR</p>
+
+                            <p><strong>Vales:</strong> $@ViewBag.Resultado.Vouchers</p>
+
+                            <p><strong>Sueldo Neto:</strong> $@ViewBag.Resultado.NetSalary</p>
+
+                        </div>
+                    </div>
+                }
+
+                <!-- Botón eliminar -->
+                <form asp-action="EliminarDefinitivo" method="post" class="mt-3">
                     <input type="hidden" name="id" value="@Model.Id" />
 
                     <button type="submit"
@@ -51,6 +77,10 @@
                             onclick="return confirm('Esta acción no se puede deshacer. ¿Continuar?');">
                         Eliminar Definitivamente
                     </button>
+
+                    <a asp-action="Index" class="btn btn-secondary">
+                        Cancelar
+                    </a>
                 </form>
             }
 

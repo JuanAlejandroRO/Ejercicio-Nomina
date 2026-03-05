@@ -35,7 +35,7 @@
                 </div>
             }
 
-            <!-- RESULTADO -->
+            <!-- RESULTADO EMPLEADO -->
             @if (Model != null && Model.Id != 0)
             {
                 <hr />
@@ -68,6 +68,28 @@
                         <strong>Tipo:</strong> @Model.Type
                     </div>
                 </div>
+
+                <!-- RESULTADO DE NOMINA -->
+                @if (ViewBag.Resultado != null)
+                {
+                    <div class="card mt-4">
+                        <div class="card-header bg-success text-white">
+                            Resultado de Nómina
+                        </div>
+
+                        <div class="card-body">
+
+                            <p><strong>Sueldo Bruto:</strong> $@ViewBag.Resultado.GrossSalary</p>
+
+                            <p><strong>ISR:</strong> $@ViewBag.Resultado.ISR</p>
+
+                            <p><strong>Vales:</strong> $@ViewBag.Resultado.Vouchers</p>
+
+                            <p><strong>Sueldo Neto:</strong> $@ViewBag.Resultado.NetSalary</p>
+
+                        </div>
+                    </div>
+                }
             }
 
             <div class="mt-4">
